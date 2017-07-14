@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.1.xsd
+           http://www.springframework.org/schema/data/jpa
+           http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+           
+           <context:component-scan base-package="com.beeva.banco.bancoApp"></context:component-scan>
+           
+           <tx:annotation-driven/>
+           <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
+             <property name="entityManagerFactory" ref="entityManagerFactory"></property>
+           </bean>
+           
+           <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+             <property name="persistenceUnitName" value="banco"></property>
+             <property name="dataSource" ref="dataSource"></property>
+           </bean>
+           
+           <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+             <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+             <property name="url" value="jdbc:mysql://localhost:3306/bancodb"></property>
+             <property name="username" value="root"></property>
+             <property name="password" value="Mexico123"></property>
+           </bean>
+           
+           <bean id="mongoConection" class="com.beeva.banco.bancoApp.ConectionMongo">
+             <property name="servidor" value="localhost"></property>
+             <property name="puerto" value="27017"></property>
+           </bean>
+      
+</beans>
